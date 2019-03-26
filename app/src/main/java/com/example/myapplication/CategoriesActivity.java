@@ -12,9 +12,9 @@ import java.util.ArrayList;
 
 public class CategoriesActivity extends AppCompatActivity implements CategoriesRequest.Callback {
 
-
     CategoriesAdapter categoriesAdapter;
 
+    /** The onCreate function will start the categories request. */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,14 +22,11 @@ public class CategoriesActivity extends AppCompatActivity implements CategoriesR
 
         CategoriesRequest categories_request = new CategoriesRequest(this);
         categories_request.getCategories(this);
-
-        // If the listView is clicked go to CategoryClickListener
-//        listView.setOnItemClickListener(new CategoryClickListener());
     }
 
+    /** Set the adapter. */
     @Override
     public void gotCategories(ArrayList<String> categories) {
-
         ListView listview = findViewById(R.id.menu_list);
         categoriesAdapter = new CategoriesAdapter(this, R.layout.content_category, categories);
         listview.setAdapter(categoriesAdapter);
@@ -39,7 +36,6 @@ public class CategoriesActivity extends AppCompatActivity implements CategoriesR
     @Override
     public void gotCategoriesError(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-
     }
 
     private class CategoryClickListener implements AdapterView.OnItemClickListener {
@@ -47,7 +43,6 @@ public class CategoriesActivity extends AppCompatActivity implements CategoriesR
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
             Intent intent = new Intent(CategoriesActivity.this, MenuActivity.class);
-
             String category = parent.getItemAtPosition(position).toString();
             intent.putExtra("category", category);
             startActivity(intent);

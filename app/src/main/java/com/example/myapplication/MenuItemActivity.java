@@ -8,10 +8,10 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import java.io.InputStream;
-
 public class MenuItemActivity extends AppCompatActivity {
 
+    /** Displays the menu item attributes: title, price, description and image.
+     * Using Picasso for loading the images from internet and turn into ImageViews. */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,9 +21,8 @@ public class MenuItemActivity extends AppCompatActivity {
         MenuItem item = (MenuItem) intent.getSerializableExtra("item");
         setTitle(item.getName());
 
-//        new DownloadImageTask((ImageView) findViewById(R.id.image)).execute(item.getImageUrl());
         TextView p = (TextView) findViewById(R.id.name);
-        String price = "\u20BF"+ Integer.toString(item.getPrice());
+        String price = Integer.toString(item.getPrice()) + " euro";
         p.setText(price);
 
         TextView description = findViewById(R.id.description);

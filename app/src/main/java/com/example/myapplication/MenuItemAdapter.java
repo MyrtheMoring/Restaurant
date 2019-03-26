@@ -7,25 +7,20 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
-
-import static java.security.AccessController.getContext;
-//import com.squareup.picasso.Picasso;
 
 public class MenuItemAdapter extends ArrayAdapter<MenuItem> {
 
-    //Create variable listMenuItems
     private ArrayList<MenuItem> listMenuItems;
 
-    // Create constructor
+    /** Constructor for the adapter. */
     public MenuItemAdapter(Context context, int resource, ArrayList<MenuItem> objects) {
         super(context, resource, objects);
         listMenuItems = objects;
     }
 
+    /** Checks if the item has been loaded before and returns the convertview. */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -34,10 +29,8 @@ public class MenuItemAdapter extends ArrayAdapter<MenuItem> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.content_menu, parent, false);
         }
 
-        // Get the menu item from the list
         MenuItem menuItem = listMenuItems.get(position);
 
-        // Set the the text and images
         TextView name = convertView.findViewById(R.id.name);
         TextView price = convertView.findViewById(R.id.price);
         ImageView imageView = convertView.findViewById(R.id.image);

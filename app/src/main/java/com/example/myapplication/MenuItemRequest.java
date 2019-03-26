@@ -1,7 +1,6 @@
 package com.example.myapplication;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -21,7 +20,6 @@ public class MenuItemRequest implements Response.Listener<JSONObject>, Response.
     private ArrayList<MenuItem> menuitems_list = new ArrayList<MenuItem>();
     private static Context context;
 
-    // Create callback
     public interface Callback {
         void gotMenuItems(ArrayList<MenuItem> categories);
         void gotMenuItemsError(String message);
@@ -31,10 +29,9 @@ public class MenuItemRequest implements Response.Listener<JSONObject>, Response.
         context = c;
     }
 
-    // This methods gets the menu items from a url
+    /** Get the menu items from the JSON URL request. */
     public void getMenuItems(Callback activity, String category) {
 
-        // Create a RequestQueue
         RequestQueue queue = Volley.newRequestQueue(context);
 
         String url = "https://resto.mprog.nl/menu?category="+category;
@@ -44,13 +41,14 @@ public class MenuItemRequest implements Response.Listener<JSONObject>, Response.
         activity_set = activity;
     }
 
-    // This method is called when there is an error with the volley
+    /** This method is called when there is an error with the volley. */
     @Override
     public void onErrorResponse(VolleyError error) {
         activity_set.gotMenuItemsError(error.getMessage());
     }
 
-    // This method is called when there is no error with the volley
+    /** This method is called when there is no error with the volley.
+     * It will extract all the items from the response object and add them to the MenuList. */
     @Override
     public void onResponse(JSONObject response) {
 
@@ -69,7 +67,6 @@ public class MenuItemRequest implements Response.Listener<JSONObject>, Response.
             activity_set.gotMenuItems(menuitems_list);
         }
         catch (JSONException e){
-            Log.d("Error JSON", e.toString());
             e.printStackTrace();
         }
 

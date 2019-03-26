@@ -2,13 +2,12 @@ package com.example.myapplication;
 
 import java.io.Serializable;
 
+/** The class MenuItem for each menu item. */
 public class MenuItem implements Serializable {
-    String name;
-    String description;
-    String imageUrl;
+    String name, description, imageUrl, category;
     int price;
-    String category;
 
+    /** The constructor for the MenuItem. */
     public MenuItem(String name, String description, String imageUrl, int price, String category) {
         this.name = name;
         this.description = description;
@@ -16,6 +15,8 @@ public class MenuItem implements Serializable {
         this.price = price;
         this.category = category;
     }
+
+    /** The get and set functions for the parameters of the MenuItem: */
 
     public String getName() {
         return name;

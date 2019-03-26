@@ -16,6 +16,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class CategoriesRequest implements Response.Listener<JSONObject>, Response.ErrorListener {
+
     private static Context context;
     private ArrayList<String> categories_array = new ArrayList<String>();
     private String cat;
@@ -25,11 +26,13 @@ public class CategoriesRequest implements Response.Listener<JSONObject>, Respons
         context = c;
     }
 
+    /** Since the data from the request is not instantly returned, there is a Callback function.*/
     public interface Callback {
         void gotCategories(ArrayList<String> categories);
         void gotCategoriesError(String message);
     }
 
+    /** Retrieve the categories from the API. */
     public void getCategories(Callback activity){
         activity_set = activity;
         RequestQueue request_queue = Volley.newRequestQueue(context);
@@ -43,6 +46,7 @@ public class CategoriesRequest implements Response.Listener<JSONObject>, Respons
         activity_set.gotCategoriesError(error.getMessage());
     }
 
+    /** Extract the array categories from the response object. */
     @Override
     public void onResponse(JSONObject response) {
 
@@ -58,8 +62,6 @@ public class CategoriesRequest implements Response.Listener<JSONObject>, Respons
         }
         catch (JSONException e){
             Log.d("Error JSON", e.toString());
-
         }
-
     }
 }

@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 public class MenuActivity extends AppCompatActivity implements MenuItemRequest.Callback{
 
+    /** In the onCreate function, there will be a request made to load to menus. */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,25 +27,23 @@ public class MenuActivity extends AppCompatActivity implements MenuItemRequest.C
         Intent intent = getIntent();
         String category = intent.getStringExtra("category");
 
-//        RequestQueue queue = Volley.newRequestQueue(this);
         MenuItemRequest menurequest = new MenuItemRequest(this);
         menurequest.getMenuItems(this, category);
     }
 
+    /**If the menu items are loaded set adapter to the listView*/
     @Override
     public void gotMenuItems(ArrayList<MenuItem> menuItems) {
 
-        // If the menu items are loaded set adapter to the listView
         MenuItemAdapter menu_adapter = new MenuItemAdapter(this, R.layout.content_category, menuItems);
         ListView listView = (ListView) findViewById(R.id.menu_list);
         listView.setAdapter(menu_adapter);
         listView.setOnItemClickListener(new MenuItemClickListener());
     }
 
+    /** If there is a problem loading the categories, display the error. */
     @Override
     public void gotMenuItemsError(String message) {
-
-        // If there was a problem loading the categories display the error
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 
@@ -52,13 +51,9 @@ public class MenuActivity extends AppCompatActivity implements MenuItemRequest.C
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-            // Create the intent
             Intent intent = new Intent(MenuActivity.this, MenuItemActivity.class);
-
-            // Add the clicked MenuItem to the intent
             MenuItem menuItem = (MenuItem) parent.getItemAtPosition(position);
             intent.putExtra("item", menuItem);
-            // Start the activity
             startActivity(intent);
         }
     }
